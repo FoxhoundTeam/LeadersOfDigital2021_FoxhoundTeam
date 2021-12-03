@@ -5,7 +5,7 @@ services:
     build: 
       dockerfile: ./compose/backend/Dockerfile
       context: .
-    image: backend
+    image: backend_foxavia
     restart: unless-stopped
     volumes:
       - ./mounts/uwsgi:/uwsgi

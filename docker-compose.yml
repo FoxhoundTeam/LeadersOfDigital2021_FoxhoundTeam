@@ -11,14 +11,14 @@ services:
     build: 
       dockerfile: ./compose/frontend/Dockerfile
       context: .
-    image: frontend
+    image: frontend_foxavia
     restart: unless-stopped
 
   nginx:
     build: 
       dockerfile: ./compose/nginx/Dockerfile
       context: .
-    image: nginx
+    image: nginx_foxavia
     restart: unless-stopped
     depends_on:
       - backend
