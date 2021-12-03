@@ -1,0 +1,32 @@
+version: '2.4'
+
+services:
+  backend:
+    extends:
+      file: common.yml
+      service: backend_base
+    command: /commands/backend.sh
+
+  frontend:
+    build: 
+      dockerfile: ./compose/frontend/Dockerfile
+      context: .
+    image: frontend
+    restart: unless-stopped
+
+  nginx:
+    build: 
+      dockerfile: ./compose/nginx/Dockerfile
+      context: .
+    image: nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - 127.0.0.1:${HTTP_PORT}:80
+    volumes:
+      - ./mounts/uwsgi:/uwsgi
+      - ./mounts/logs/nginx:/var/log/nginx
+      - ./mounts/media:/webapp/media:ro
+      - ./mounts/static:/webapp/static:ro
