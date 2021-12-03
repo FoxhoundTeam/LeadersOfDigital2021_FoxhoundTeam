@@ -47,6 +47,33 @@
               <div class="text--primary">
                 Максимальное количество попыток: {{ task.max_attempts }}
               </div>
+              <div class="text--primary">
+                Пройдено:
+                {{
+                  $store.state.task_attempts.findIndex(
+                    (v) => v.task_id == task.id
+                  ) != -1
+                    ? "Да"
+                    : "Нет"
+                }}
+                <p
+                  v-if="
+                    $store.state.task_attempts.findIndex(
+                      (v) => v.task_id == task.id
+                    ) != -1
+                  "
+                >
+                  Результат:
+                  {{
+                    $store.state.task_attempts[
+                      $store.state.task_attempts.findIndex(
+                        (v) => v.task_id == task.id
+                      )
+                    ].score
+                  }}
+                  из 100
+                </p>
+              </div>
             </v-card-text>
             <v-card-actions>
               <v-btn text color="teal accent-4" @click="task.reveal = true">
@@ -103,6 +130,9 @@ export default {
     }
     if (this.$store.state.tasks.length == 0) {
       await this.$store.dispatch("setTasks");
+    }
+    if (this.$store.state.task_attempts.length == 0) {
+      await this.$store.dispatch("setTaskAttempts");
     }
   },
 };

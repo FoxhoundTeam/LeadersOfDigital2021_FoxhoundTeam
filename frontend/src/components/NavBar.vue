@@ -37,7 +37,14 @@
           <template v-slot:activator>
             <v-list-item-title>Пользователь</v-list-item-title>
           </template>
-
+          <v-list-item link :to="{name: 'Profile'}"
+            ><v-list-item-icon>
+              <v-icon>person</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Профиль</v-list-item-title>
+            </v-list-item-content></v-list-item
+          >
           <v-list-item @click="$store.dispatch('logout')"
             ><v-list-item-icon>
               <v-icon>logout</v-icon>

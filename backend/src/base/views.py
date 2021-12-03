@@ -51,6 +51,8 @@ class TestViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly,]
 
 class TestAttemptViewSet(viewsets.ModelViewSet):
-    queryset = TestAttempt.objects.all()
     serializer_class = TestAttemptSerializer
     permission_classes = [IsAuthenticated,]
+
+    def get_queryset(self):
+        return TestAttempt.objects.filter(user=self.request.user)

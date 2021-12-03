@@ -47,6 +47,7 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
             'task_id',
             'track',
             'score',
+            'user',
         ]
 
     def create(self, validated_data):
