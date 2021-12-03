@@ -101,6 +101,14 @@ let opts = {
       ]
     },
     {
+      path: "/test/:id",
+      name: "TestView",
+      component: () => import('../views/TestView.vue'),
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {
       path: "/login",
       name: "login",
       component: () => import('../views/Login.vue'),

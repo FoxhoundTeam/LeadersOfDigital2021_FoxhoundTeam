@@ -139,7 +139,7 @@ export default {
       });
     },
     addItem() {
-      this.test.data.push({ question: "", answers: [] });
+      this.test.data.push({ id: this.test.data.length + 1, title: "", answers: [] });
     },
     deleteItem(i) {
       this.test.data.splice(i, 1);
