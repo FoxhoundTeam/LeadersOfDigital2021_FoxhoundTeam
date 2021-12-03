@@ -9,6 +9,7 @@ export default {
         Test: '/rest_api/test/',
         TestAttempt: '/rest_api/test_attempt/',
         TaskAttempt: '/rest_api/task_attempt/',
+        TestAttemptCreate: '/rest_api/test_attempt/get_or_create/',
     },
     getFilterValues: async function (filters) {
         var filter = "";

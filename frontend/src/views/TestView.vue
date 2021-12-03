@@ -19,7 +19,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <v-btn :disabled='!isAllFiiled' color="primary">Завершить тестирование</v-btn>
+    <v-btn :disabled='!isAllFiiled' color="primary" @click="$router.replace({name: 'Test'})">Завершить тестирование</v-btn>
   </v-container>
 </template>
 
