@@ -22,10 +22,10 @@
       <v-tooltip bottom color="primary">
         <template v-slot:activator="{ on, attrs }">
           <v-btn v-bind="attrs" v-on="on" href="#" color="primary">
-            Скачать exe-файл
+            Cкачать клиент
           </v-btn>
         </template>
-        <span>Для обучения нужно скачать и установить себе exe-файл</span>
+        <span>Для обучения нужно скачать и установить себе клиент</span>
       </v-tooltip>
 
       <v-btn
