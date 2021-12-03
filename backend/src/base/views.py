@@ -1,7 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from src.base.permissions import IsAdmin, IsAdminOrReadOnly
+from src.base.permissions import IsAdminOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from rest_auth.views import UserDetailsView
 from src.base.models import (
@@ -10,15 +8,16 @@ from src.base.models import (
     TaskAttempt,
     Test,
     TeoryInfo,
+    TestAttempt,
 )
 from src.base.serializers import (
-    ChartSerializer, 
     LevelSerializer, 
     TaskSeializer, 
     TaskAttemptSerializer,
     TestSerializer,
     UserSerializer,
     TeoryInfoSerializer,
+    TestAttemptSerializer,
 )
 
 class LevelViewSet(viewsets.ReadOnlyModelViewSet):
@@ -45,3 +44,13 @@ class TeoryInfoViewSet(viewsets.ModelViewSet):
     queryset = TeoryInfo.objects.all()
     serializer_class = TeoryInfoSerializer
     permission_classes = [IsAdminOrReadOnly,]
+
+class TestViewSet(viewsets.ModelViewSet):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
+    permission_classes = [IsAdminOrReadOnly,]
+
+class TestAttemptViewSet(viewsets.ModelViewSet):
+    queryset = TestAttempt.objects.all()
+    serializer_class = TestAttemptSerializer
+    permission_classes = [IsAuthenticated,]

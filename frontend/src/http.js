@@ -6,6 +6,9 @@ export default {
         Task: '/rest_api/task/',
         Level: '/rest_api/level/',
         TeoryInfo: '/rest_api/teory_info/',
+        Test: '/rest_api/test/',
+        TestAttempt: '/rest_api/test_attempt/',
+        TaskAttempt: '/rest_api/task_attempt/',
     },
     getFilterValues: async function (filters) {
         var filter = "";

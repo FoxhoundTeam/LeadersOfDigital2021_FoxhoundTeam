@@ -7,6 +7,8 @@ from src.base.views import (
     TaskAttemptViewSet,
     LevelViewSet,
     TeoryInfoViewSet,
+    TestViewSet,
+    TestAttemptViewSet,
 )
 
 rest_auth_urls = [
@@ -20,6 +22,8 @@ router.register(r'task', TaskViewSet, basename='Task')
 router.register(r'task_attempt', TaskAttemptViewSet, basename='TaskAttempt')
 router.register(r'level', LevelViewSet, basename='Level')
 router.register(r'teory_info', TeoryInfoViewSet, basename='TeoryInfo')
+router.register(r'test', TestViewSet, basename='Test')
+router.register(r'test_attept', TestAttemptViewSet, basename='TestAttempt')
 
 
 urlpatterns = [

@@ -13,6 +13,7 @@ const store = new Vuex.Store({
         tasks: [],
         levels: [],
         teory_infos: [],
+        tests: [],
     },
     mutations: {
         setUser(state, user) {
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
         },
         setTeoryInfos(state, infos) {
             state.teory_infos = infos;
+        },
+        setTests(state, tests) {
+            state.tests = tests;
         }
     },
     actions: {
@@ -46,6 +50,10 @@ const store = new Vuex.Store({
         async setTeoryInfos(context) {
             let response = (await http.getList('TeoryInfo', {}, true)).data;
             context.commit('setTeoryInfos', response);
+        },
+        async setTests(context) {
+            let response = (await http.getList('Test', {}, true)).data;
+            context.commit('setTests', response);
         },
         async addItem(context, data) {
             let item_data = data.data

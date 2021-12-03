@@ -4,10 +4,8 @@ from src.base.models import (
     Task,
     TaskAttempt,
     Test,
-    TestTask,
     TestAttempt,
     TeoryInfo,
-    UserAnswer,
 )
 from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
@@ -72,8 +70,20 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
         return data
 
 class TestSerializer(serializers.ModelSerializer):
+    data = serializers.JSONField()
+    class Meta:
         model = Test
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['data'] = instance.data_value
+        return data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.context['view'].action == 'list':
+            self.fields.pop('data')
     
 class UserSerializer(UserDetailsSerializer):
     class Meta:
@@ -84,6 +94,12 @@ class TeoryInfoSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = TeoryInfo
+
+class TestAttemptSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+    class Meta:
+        fields = '__all__'
+        model = TestAttempt
 
 class ChartSerializer(serializers.Serializer):
     dt_from = serializers.DateField()

@@ -36,12 +36,20 @@ class TeoryInfo(models.Model):
 class Test(models.Model):
     name = models.CharField(max_length=1024)
     max_attempts = models.PositiveIntegerField(default=1)
+    data = models.TextField(default='[]')
 
-class TestTask(models.Model):
-    question = models.TextField()
-    answers = models.TextField()
-    correct_answer = models.CharField(max_length=512)
-    test = models.ForeignKey(Test, on_delete=models.PROTECT)
+    @property
+    def data_value(self):
+        if isinstance(self.data, list):
+            return self.data
+        try:
+            return json.loads(self.data)
+        except:
+            return []
+
+    def save(self, *args, **kwargs):
+        self.data = json.dumps(self.data_value)
+        super().save(*args, **kwargs)
 
 class TaskAttempt(models.Model):
     TYPE_EXAM = 'E'
@@ -66,9 +74,4 @@ class TestAttempt(models.Model):
     test = models.ForeignKey(Test, on_delete=models.PROTECT)
     dttm_start = models.DateTimeField(auto_now_add=True)
     dttm_end = models.DateTimeField(null=True, blank=True)
-
-class UserAnswer(models.Model):
-    test_attempt = models.ForeignKey(TestAttempt, on_delete=models.PROTECT)
-    question = models.ForeignKey(TestTask, on_delete=models.PROTECT)
-    answer = models.CharField(max_length=512)
-    is_correct = models.BooleanField()
+    answers = models.TextField(default='[]')

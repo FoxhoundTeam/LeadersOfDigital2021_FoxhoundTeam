@@ -25,6 +25,14 @@
             <v-list-item-title>Теоритические материалы</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link :to="{name: 'Test'}">
+          <v-list-item-icon>
+            <v-icon>quiz</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Тесты</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-group prepend-icon="person">
           <template v-slot:activator>
             <v-list-item-title>Пользователь</v-list-item-title>

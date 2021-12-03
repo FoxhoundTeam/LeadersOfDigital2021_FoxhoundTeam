@@ -23,7 +23,7 @@ let opts = {
       },
       children: [
         {
-          path: "/editor/:id",
+          path: "editor/:id",
           name: "Editor",
           component: () => import('../views/Editor.vue'),
           meta: {
@@ -31,7 +31,7 @@ let opts = {
           }
         },
         {
-          path: "/editor",
+          path: "editor",
           name: "EditorCreate",
           component: () => import('../views/Editor.vue'),
           meta: {
@@ -49,7 +49,7 @@ let opts = {
       },
       children: [
         {
-          path: "/edit/:id",
+          path: "edit/:id",
           name: "TeoryEdit",
           component: () => import('../views/TeoryEdit.vue'),
           meta: {
@@ -57,7 +57,7 @@ let opts = {
           }
         },
         {
-          path: "/create",
+          path: "create",
           name: "TeoryCreate",
           component: () => import('../views/TeoryEdit.vue'),
           meta: {
@@ -74,92 +74,32 @@ let opts = {
         requiresAuth: true
       },
     },
-    // {
-    //   path: "/dashboard",
-    //   name: "Dashboard",
-    //   component: () => import('../views/Dashboard.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
-    // {
-    //   path: "/websocket",
-    //   name: "WebSocketSchema",
-    //   component: () => import('../views/WebSocketSchemaTable.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   },
-    //   children: [
-    //     {
-    //       path: "create",
-    //       name: "WebSocketSchemaCreate",
-    //       component: () => import('../components/modals/WebSocketSchemaModal.vue'),
-    //       meta: {
-    //         requiresAuth: true
-    //       },
-    //     },
-    //     {
-    //       path: "edit/:id",
-    //       name: "WebSocketSchemaEdit",
-    //       component: () => import('../components/modals/WebSocketSchemaModal.vue'),
-    //       meta: {
-    //         requiresAuth: true
-    //       },
-    //     },
-    //   ]
-    // },
-    // {
-    //   path: "/websocket_callback",
-    //   name: "WebSocketCallback",
-    //   component: () => import('../views/WebSocketCallbackTable.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   },
-    //   children: [
-    //     {
-    //       path: "create",
-    //       name: "WebSocketCallbackCreate",
-    //       component: () => import('../components/modals/WebSocketCallbackModal.vue'),
-    //       meta: {
-    //         requiresAuth: true
-    //       },
-    //     },
-    //     {
-    //       path: "edit/:id",
-    //       name: "WebSocketCallbackEdit",
-    //       component: () => import('../components/modals/WebSocketCallbackModal.vue'),
-    //       meta: {
-    //         requiresAuth: true
-    //       },
-    //     },
-    //   ]
-    // },
-    // {
-    //   path: "/violations",
-    //   name: "Violation",
-    //   component: () => import('../views/ViolationsTable.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   },
-    //   children: [
-    //     {
-    //       path: ":id/",
-    //       name: "ViolationView",
-    //       component: () => import('../components/modals/ViolationModal.vue'),
-    //       meta: {
-    //         requiresAuth: true
-    //       },
-    //     },
-    //   ]
-    // },
-    // {
-    //   path: "/settings",
-    //   name: "Settings",
-    //   component: () => import('../views/Settings.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   },
-    // },
+    {
+      path: "/tests",
+      name: "Test",
+      component: () => import('../views/Test.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: "edit/:id",
+          name: "TestEdit",
+          component: () => import('../views/TestEdit.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: "create",
+          name: "TestCreate",
+          component: () => import('../views/TestEdit.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+      ]
+    },
     {
       path: "/login",
       name: "login",

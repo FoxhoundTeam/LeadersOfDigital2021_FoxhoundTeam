@@ -5,6 +5,29 @@
 
       <v-spacer></v-spacer>
 
+      <v-tooltip bottom color="primary">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            href="https://www.flightgear.org/download/"
+            color="primary"
+            class="mr-2"
+          >
+            Скачать симулятор
+          </v-btn>
+        </template>
+        <span>Для обучения нужно скачать и установить себе симулятор</span>
+      </v-tooltip>
+      <v-tooltip bottom color="primary">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" href="#" color="primary">
+            Скачать exe-файл
+          </v-btn>
+        </template>
+        <span>Для обучения нужно скачать и установить себе exe-файл</span>
+      </v-tooltip>
+
       <v-btn
         text
         v-if="$store.state.user.is_admin"
