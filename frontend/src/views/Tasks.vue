@@ -21,7 +21,7 @@
       </v-tooltip>
       <v-tooltip bottom color="primary">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" href="#" color="primary">
+          <v-btn v-bind="attrs" v-on="on" href="/FoxAviaClient.zip" color="primary">
             Cкачать клиент
           </v-btn>
         </template>
