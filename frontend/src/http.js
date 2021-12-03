@@ -3,15 +3,9 @@ import Vue from 'vue';
 
 export default {
     urls: {
-        WebSocketSchema: '/rest_api/web_socket_schema/',
-        WebSocketCallback: '/rest_api/web_socket_callback/',
-        Violation: '/rest_api/violation/',
-        HTTPAllowedType: '/rest_api/http_allowed_type/',
-        WebSocketSchemaStat: '/rest_api/web_socket_schema/stats/',
-        HTTPAllowedTypeStat: '/rest_api/http_allowed_type/stats/',
-        Chart: '/rest_api/violation/chart/',
-        WebSocketAllowedOrigin: '/rest_api/web_socket_allowed_origin/',
-        FilesProxy: '/rest_api/files_proxy/'
+        Task: '/rest_api/task/',
+        Level: '/rest_api/level/',
+        TeoryInfo: '/rest_api/teory_info/',
     },
     getFilterValues: async function (filters) {
         var filter = "";

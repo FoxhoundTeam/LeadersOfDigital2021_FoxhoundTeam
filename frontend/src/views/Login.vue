@@ -38,12 +38,12 @@ export default {
         username: this.username,
         password: this.password,
       });
-      this.$router.replace({ name: "Dashboard" });
+      this.$router.replace({ name: "Index" });
     },
   },
   beforeMount() {
     if (this.$store.state.isAuthenticated) {
-      this.$router.replace({ name: "Dashboard" });
+      this.$router.replace({ name: "Index" });
     }
   },
 };

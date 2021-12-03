@@ -2,7 +2,6 @@
   <v-dialog
     v-model="show"
     fullscreen
-    width="1000px"
     hide-overlay
     transition="dialog-bottom-transition"
     @click:outside="closeModal()"
@@ -26,7 +25,7 @@
       </v-toolbar>
       <v-card-text>
         <div>
-            <!-- Сюда вставлять three js -->
+          <!-- Сюда вставлять three js -->
         </div>
         <v-text-field
           v-model="task.name"
@@ -34,11 +33,24 @@
           counter
           maxlength="512"
         ></v-text-field>
+        <v-select
+          item-text="name"
+          item-value="id"
+          label='Уровень сложности'
+          :items="$store.state.levels"
+          v-model="task.level_id"
+          dense
+        ></v-select>
+        <v-text-field
+          v-model.number="task.max_attempts"
+          label="Количество попыток экзамена"
+          type="number"
+        ></v-text-field>
         <v-textarea v-model="task.description" label="Описание"></v-textarea>
         <h5>Задание</h5>
         <div>
-          <v-expansion-panels v-model="panels">
-            <v-expansion-panel v-for="(task, i) in task.task" :key="task">
+          <v-expansion-panels>
+            <v-expansion-panel v-for="(task, i) in task.task" :key="`${i}-task`">
               <v-expansion-panel-header>
                 <v-row>
                   <v-col cols="11">
@@ -57,65 +69,63 @@
                 </v-row>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                    <v-row>
-                      <v-col>
-                        <v-select
-                          item-text="name"
-                          item-value="value"
-                          :items="types"
-                          v-model="task.type"
-                          dense
-                        ></v-select>
-                      </v-col>
-                      <v-col>
-                        <v-text-field
-                          type="number"
-                          v-model.number="task.x"
-                          label="X"
-                          dense
-                        />
-                      </v-col>
-                      <v-col>
-                        <v-text-field
-                          type="number"
-                          v-model.number="task.y"
-                          label="Y"
-                          dense
-                      /></v-col>
-                      <v-col>
-                        <v-text-field
-                          v-if="task.type != 'nofly_zone'"
-                          type="number"
-                          v-model.number="task.z"
-                          label="Z"
-                          dense
-                      /></v-col>
-                      <v-col>
-                        <v-text-field
-                          type="number"
-                          v-model.number="task.к"
-                          label="Радиус"
-                          dense
-                      /></v-col>
-                      <v-col>
-                        <v-text-field
-                          v-if="task.type != 'nofly_zone'"
-                          type="time"
-                          v-modelr="task.t"
-                          label="Время"
-                          dense
-                      /></v-col>
-                      <v-col>
-                        <v-text-field
-                          v-if="task.type == 'waypoint_command'"
-                          v-model="task.command"
-                          label="Команда"
-                          dense
-                      /></v-col>
-                    </v-row>
-              </v-expansion-panel-content></v-expansion-panel
-            ></v-expansion-panels
-          >
+                <v-row>
+                  <v-col>
+                    <v-select
+                      item-text="name"
+                      item-value="value"
+                      :items="types"
+                      v-model="task.type"
+                      dense
+                    ></v-select>
+                  </v-col>
+                  <v-col>
+                    <v-text-field
+                      type="number"
+                      v-model.number="task.x"
+                      label="X"
+                      dense
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-text-field
+                      type="number"
+                      v-model.number="task.y"
+                      label="Y"
+                      dense
+                  /></v-col>
+                  <v-col>
+                    <v-text-field
+                      v-if="task.type != 'nofly_zone'"
+                      type="number"
+                      v-model.number="task.z"
+                      label="Z"
+                      dense
+                  /></v-col>
+                  <v-col>
+                    <v-text-field
+                      type="number"
+                      v-model.number="task.к"
+                      label="Радиус"
+                      dense
+                  /></v-col>
+                  <v-col>
+                    <v-text-field
+                      v-if="task.type != 'nofly_zone'"
+                      type="time"
+                      v-modelr="task.t"
+                      label="Время"
+                      dense
+                  /></v-col>
+                  <v-col>
+                    <v-text-field
+                      v-if="task.type == 'waypoint_command'"
+                      v-model="task.command"
+                      label="Команда"
+                      dense
+                  /></v-col>
+                </v-row> </v-expansion-panel-content></v-expansion-panel
+          ></v-expansion-panels>
           <v-row>
             <v-col
               ><v-btn class="my-1" fab color="primary" @click="addItem()">
@@ -134,7 +144,6 @@ import http from "../http";
 export default {
   data() {
     return {
-      panels: [],
       types: [
         {
           name: "Пролететь точку с определённым радиусом (временем)",
@@ -154,6 +163,7 @@ export default {
         name: "",
         description: "",
         task: [],
+        max_attempts: 1,
       },
     };
   },
@@ -169,13 +179,12 @@ export default {
       this.show = false;
       var q = { ...this.$route.query };
       this.$router.replace({
-        name: "WebSocketSchema",
+        name: "Task",
         query: q,
       });
     },
     addItem() {
       this.task.task.push({ type: "waypoint" });
-      this.panels.push(this.task.task.length - 1);
     },
     deleteItem(i) {
       this.task.task.splice(i, 1);
@@ -185,16 +194,16 @@ export default {
         await this.$store.dispatch("updateItem", {
           data: this.task,
           dataID: this.task.id,
-          mutation: "setWebSocketSchemas",
-          url: "WebSocketSchema",
-          items_name: "schemas",
+          mutation: "setTasks",
+          url: "Task",
+          items_name: "tasks",
         });
       } else {
         await this.$store.dispatch("addItem", {
           data: this.task,
-          mutation: "setWebSocketSchemas",
-          url: "WebSocketSchema",
-          items_name: "schemas",
+          mutation: "setTasks",
+          url: "Task",
+          items_name: "tasks",
         });
       }
       this.closeModal();

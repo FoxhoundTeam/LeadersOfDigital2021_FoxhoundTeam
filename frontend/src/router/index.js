@@ -9,18 +9,70 @@ let opts = {
     {
       path: "/",
       name: "Index",
-      redirect: "/dashboard",
+      redirect: "/task",
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: "/editor",
-      name: "Editor",
-      component: () => import('../views/Editor.vue'),
+      path: "/task",
+      name: "Task",
+      component: () => import('../views/Tasks.vue'),
       meta: {
-        requiresAuth: false
-      }
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: "/editor/:id",
+          name: "Editor",
+          component: () => import('../views/Editor.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: "/editor",
+          name: "EditorCreate",
+          component: () => import('../views/Editor.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+      ]
+    },
+    {
+      path: "/teory",
+      name: "TeoryInfo",
+      component: () => import('../views/Teory.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: "/edit/:id",
+          name: "TeoryEdit",
+          component: () => import('../views/TeoryEdit.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: "/create",
+          name: "TeoryCreate",
+          component: () => import('../views/TeoryEdit.vue'),
+          meta: {
+            requiresAuth: true
+          }
+        },
+      ]
+    },
+    {
+      path: "/teory/:id",
+      name: "TeoryView",
+      component: () => import('../views/TeoryView.vue'),
+      meta: {
+        requiresAuth: true
+      },
     },
     // {
     //   path: "/dashboard",
