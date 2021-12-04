@@ -196,7 +196,8 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['track'] = json.loads(instance.track)
+        if isinstance(data['track'], str):
+            data['track'] = json.loads(instance.track)
         return data
 
 
