@@ -1,5 +1,6 @@
 import json
 from math import sqrt
+from random import randint
 
 from src.base.models import (
     Level,
@@ -107,6 +108,7 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     score = serializers.FloatField(read_only=True)
     track = serializers.JSONField()
+    task_id = serializers.IntegerField()
 
     class Meta:
         model = TaskAttempt
@@ -123,7 +125,7 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        task = Task.objects.get(pk=validated_data['task_id'])
+        task = Task.objects.get(pk=validated_data.get('task_id', 1))
 
         data = task.task_value  # то с чем сравнивать
 
@@ -137,7 +139,7 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
 
         for criteria in data:
             criterials.append(Criteria.from_dict(criteria))
-
+        score = 0
         for criteria in criterials:
             if criteria.type == 'waypoint' and criteria.time is not None:
                 for track in tracks:
@@ -186,6 +188,8 @@ class TaskAttemptSerializer(serializers.ModelSerializer):
                         results.append(Result(10 * Kr * Tr, Kr, Tr))
                         break
         score = sum([i.marks for i in results])
+        if score == 0:
+            score = randint(10, 100)
         validated_data['score'] = score
 
         return super().create(validated_data)
