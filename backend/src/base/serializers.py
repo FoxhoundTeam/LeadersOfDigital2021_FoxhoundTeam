@@ -104,7 +104,7 @@ class TaskSeializer(serializers.ModelSerializer):
 
 
 class TaskAttemptSerializer(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     score = serializers.FloatField(read_only=True)
     track = serializers.JSONField()
 
