@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # LeadersOfDigital2021_FoxhoundTeam
 Решение команды Foxhound в финале хакатона "Цифровой прорыв", 2-4 декабря 2021 г.
 
